@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h2>Users</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Username</th><th>Actions</th></tr></thead>
+            <tbody>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.id}">1</td>
+                <td th:text="${u.username}">alice</td>
+                <td>
+                    <form th:action="@{'/users/' + ${u.id} + '/delete'}" method="post" style="display:inline">
+                        <button class="btn" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Create user</h2>
+        <form th:action="@{/users}" method="post" th:object="${user}">
+            <input th:field="*{username}" placeholder="username"/>
+            <button class="btn" type="submit">Save</button>
+        </form>
+        <p class="small">Имя пользователя уникально.</p>
+    </div>
+
+    <div class="card"><a class="btn" th:href="@{/}">← Home</a></div>
+</div>
+</body>
+</html>
